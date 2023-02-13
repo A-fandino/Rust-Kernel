@@ -14,8 +14,14 @@ use core::panic::PanicInfo;
 pub extern "C" fn _start() -> ! {
     println!("You are the Kernel Run #{} of this year. You got rewarded with 2 penies.", 42);
     
+    rust_os::init();
+
+    x86_64::instructions::interrupts::int3();
+
     #[cfg(test)]
     test_main();
+
+    println!("DIdn't crash!!")
 
     loop {}
 }
