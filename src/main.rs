@@ -21,7 +21,7 @@ pub extern "C" fn _start() -> ! {
     #[cfg(test)]
     test_main();
 
-    println!("DIdn't crash!!")
+    println!("DIdn't crash!!");
 
     loop {}
 }
