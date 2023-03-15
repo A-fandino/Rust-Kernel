@@ -16,6 +16,13 @@ pub extern "C" fn _start() -> ! {
     
     rust_os::init();
 
+    #[warn(unconditional_recursion)]
+    fn stack_overflow() {
+        stack_overflow();
+    }
+
+    stack_overflow();
+
     x86_64::instructions::interrupts::int3();
 
     #[cfg(test)]

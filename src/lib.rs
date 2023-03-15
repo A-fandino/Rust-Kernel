@@ -9,7 +9,7 @@ use core::panic::PanicInfo;
 pub mod serial;
 pub mod vga_buffer;
 pub mod interrupts;
-
+pub mod gdt;
 pub fn test_runner(tests: &[&dyn Testable]) {
     serial_println!("Running {} tests", tests.len());
     for test in tests {
@@ -67,10 +67,12 @@ fn panic(info: &PanicInfo) -> ! {
 #[cfg(test)]
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
+    init();
     test_main();
     loop {}
 }
 
 pub fn init() {
+    gdt::init();
     interrupts::init_idt();
 }
