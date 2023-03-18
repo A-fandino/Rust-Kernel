@@ -16,21 +16,20 @@ pub extern "C" fn _start() -> ! {
     
     rust_os::init();
 
-    #[warn(unconditional_recursion)]
-    fn stack_overflow() {
-        stack_overflow();
-    }
+    // #[warn(unconditional_recursion)]
+    // fn stack_overflow() {
+    //     stack_overflow();
+    // }
 
-    stack_overflow();
+    // stack_overflow();
 
-    x86_64::instructions::interrupts::int3();
+    // x86_64::instructions::interrupts::int3();
 
     #[cfg(test)]
     test_main();
 
     println!("DIdn't crash!!");
-
-    loop {}
+    rust_os::hlt_loop();
 }
 
 /// This function is called on panic.
@@ -38,7 +37,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    rust_os::hlt_loop();
 }
 
 #[cfg(test)]
